@@ -1,0 +1,129 @@
+.page {
+  min-height: 100vh;
+  padding-top: 110px;
+  background: var(--color-bg);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 18px;
+  margin-bottom: 24px;
+}
+
+.header h1 {
+  margin-top: 6px;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  letter-spacing: 0;
+}
+
+.eyebrow {
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  max-width: 620px;
+  margin-top: 8px;
+  color: var(--color-muted);
+  line-height: 1.6;
+}
+
+.refreshButton {
+  min-height: 42px;
+  padding: 0 16px;
+  color: #0a0c12;
+  font-weight: 900;
+  background: var(--color-accent);
+  border-radius: 6px;
+}
+
+.notice {
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  color: var(--color-text);
+  background: rgba(245, 197, 24, 0.09);
+  border-radius: 8px;
+}
+
+.grid {
+  display: grid;
+  gap: 14px;
+}
+
+.card {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr auto;
+  gap: 16px;
+  align-items: center;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.receipt {
+  color: var(--color-accent);
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.product {
+  margin-top: 4px;
+  font-size: 1.08rem;
+  font-weight: 900;
+}
+
+.meta,
+.date {
+  margin-top: 4px;
+  color: var(--color-muted);
+  font-size: 0.88rem;
+}
+
+.statusRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start;
+}
+
+.status {
+  padding: 6px 9px;
+  color: #45e28a;
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  background: rgba(69, 226, 138, 0.1);
+  border-radius: 999px;
+}
+
+.price {
+  color: var(--color-accent);
+  font-size: 1.1rem;
+  font-weight: 900;
+  text-align: right;
+}
+
+.empty {
+  padding: 32px;
+  color: var(--color-muted);
+  text-align: center;
+  background: rgba(255, 255, 255, 0.04);
+  border-radius: 8px;
+}
+
+@media (max-width: 780px) {
+  .header,
+  .card {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .price {
+    text-align: left;
+  }
+}
