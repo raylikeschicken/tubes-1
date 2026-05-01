@@ -1,21 +1,30 @@
 import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import connectDB from '@/lib/mongodb';
-import User from '@/lib/models/User';
+import { query } from '@/lib/db';
 
 export async function POST(request: NextRequest) {
   try {
-    await connectDB();
     const { email, password } = await request.json();
 
-    const user = await User.findOne({ email });
+    const result = await query<{
+      id: string;
+      email: string;
+      password: string;
+      nickname: string | null;
+      role: 'user' | 'admin';
+    }>(
+      'SELECT id, email, password, nickname, role FROM users WHERE email = $1',
+      [email],
+    );
+    const user = result.rows[0];
+
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return NextResponse.json({ error: 'Invalid credentials' }, { status: 401 });
     }
 
     const token = jwt.sign(
-      { userId: user._id, role: user.role },
+      { userId: user.id, role: user.role },
       process.env.JWT_SECRET || 'secret',
       { expiresIn: '1d' }
     );
@@ -23,7 +32,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       token,
       user: {
-        id: user._id,
+        id: user.id,
         email: user.email,
         nickname: user.nickname,
         role: user.role,

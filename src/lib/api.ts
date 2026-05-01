@@ -13,5 +13,5 @@ export function apiUrl(path: string): string {
 }
 
 export function hasApiUrl(): boolean {
-  return API_BASE_URL.length > 0;
+  return true;
 }

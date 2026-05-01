@@ -54,12 +54,6 @@ export default function AdminDashboard() {
       router.push('/login');
       return;
     }
-    if (!hasApiUrl()) {
-      setError('NEXT_PUBLIC_API_URL belum dikonfigurasi');
-      setLoading(false);
-      return;
-    }
-
     fetch(apiUrl('/api/auth/me'), {
       headers: { Authorization: `Bearer ${token}` },
     })
@@ -85,8 +79,8 @@ export default function AdminDashboard() {
 
     try {
       const [statsResponse, ordersResponse, usersResponse] = await Promise.all([
-        fetch(apiUrl('/api/users/stats/dashboard'), { headers }),
-        fetch(apiUrl('/api/orders/admin/all'), { headers }),
+        fetch(apiUrl('/api/users?action=stats'), { headers }),
+        fetch(apiUrl('/api/orders?admin=all'), { headers }),
         fetch(apiUrl('/api/users'), { headers }),
       ]);
 
@@ -103,7 +97,7 @@ export default function AdminDashboard() {
 
   const updateOrderStatus = async (id: string, orderStatus: string) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(apiUrl(`/api/orders/${id}/status`), {
+    const response = await fetch(apiUrl(`/api/orders/${id}?action=status`), {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
